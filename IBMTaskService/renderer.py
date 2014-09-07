@@ -2,6 +2,11 @@
 Created on 6 Sep 2014
 
 @author: podero
+
+This helps the service to provide an API to which the client makes calls.
+
+The API sends back image strings encoded in base64
+
 '''
 
 import json

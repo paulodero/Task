@@ -2,6 +2,11 @@
 Created on 5 Sep 2014
 
 @author: podero
+
+This renders the initial page of the service.
+
+Shows the images available in twitpic and gives an option to scrap them 
+and dunp into the service
 '''
 import os
 import ops

@@ -2,6 +2,9 @@
 Created on 6 Sep 2014
 
 @author: podero
+
+This script helps to scrap off images from twitpic into 
+this service
 '''
 
 import urllib
@@ -33,12 +36,9 @@ class ScrapHandler(webapp2.RequestHandler):
             image.image_url = imag.image_url
             img = images.resize(urllib.urlopen(imag.image_url).read(), 32, 32)
             image.img = db.Blob(img)
-             
-            #image.imageString = base64.b64encode(img.read())
             image.put()
 
-             
-        #self.redirect('/showImages')
+
          
 app = webapp2.WSGIApplication([ ('/scrap', ScrapHandler)],
                               debug=True)

@@ -2,6 +2,8 @@
 Created on 6 Sep 2014
 
 @author: podero
+
+This file contains some important functions used 
 '''
 import json
 import urllib2

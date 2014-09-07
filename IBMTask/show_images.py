@@ -2,6 +2,14 @@
 Created on 6 Sep 2014
 
 @author: podero
+
+This script sends a post request to the service API
+
+It receives images inform of strings which have been encoded using base64 as a response
+
+It then sends these encoded images to be rendered in the html page
+
+The 
 '''
 
 import urllib
@@ -23,7 +31,7 @@ class ShowImagesHandle(webapp2.RequestHandler):
         url = 'http://ibmtask-service.appspot.com/rpc'
         params = urllib.urlencode({
                 "action": "Echo",
-                "params": '{"number":"5"}',
+                "params": '{"number":"3"}',
                 "key": "mySecretKey"
         })
         response = urllib2.urlopen(url, params).read() 
