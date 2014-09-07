@@ -74,6 +74,6 @@ def addImages(uploaded_image):
         image = models.ImageModel(key_name = key)
         image.image_name = imag.image_name
         image.file_type = imag.file_type
-        decodeimage = urllib.urlopen(imag.image_url)
-        image.imageText = base64.b64encode(decodeimage.read())
+        encodeimage = urllib.urlopen(imag.image_url)
+        image.imageText = base64.b64encode(encodeimage.read())
         image.put()
