@@ -25,10 +25,6 @@ class ImageModel(db.Model):
     image_url = db.StringProperty(multiline=True)
     img = db.BlobProperty()
 
-
-def image_key(image_name=None):
-    return db.Key.from_path('Image', image_name or 'default_image')
-
 class ScrapHandler(webapp2.RequestHandler):
     def get(self):       
         uploaded_image = ops.getImages()       
