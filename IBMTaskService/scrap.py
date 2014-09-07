@@ -13,8 +13,7 @@ import ops
 import models
 import base64
 import os
-from google.appengine.ext.webapp import template
-from settings import TEMPLATES_PATH
+
 from google.appengine.ext import db
 from google.appengine.api import images
 
