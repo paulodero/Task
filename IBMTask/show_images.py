@@ -31,13 +31,14 @@ class ShowImagesHandle(webapp2.RequestHandler):
         url = 'http://ibmtask-service.appspot.com/rpc'
         params = urllib.urlencode({
                 "action": "Echo",
-                "params": '{"number":"10"}',
+                "params": '{"number":"6"}',
                 "key": "mySecretKey"
         })
         response = urllib2.urlopen(url, params).read() 
         
-        image_data = response[1:-1]    
-        image_data = image_data.split(',')
+        image_data = response[1:-1]
+        if len(image_data) > 10: 
+            image_data = image_data.split(',')
         displayImages = []
         for imageString in image_data:
             displayImages.append(imageString)
