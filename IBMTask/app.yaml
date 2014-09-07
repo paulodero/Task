@@ -1,0 +1,24 @@
+application: ibmtask
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /images
+  static_dir: static/images
+
+- url: /css
+  static_dir: static/css
+
+- url: /font-awesome
+  static_dir: static/fonts-awesome
+  
+- url: /bootstrap
+  static_dir: static/bootstrap
+
+- url: /js
+  static_dir: static/js
+  
+- url: /.*
+  script: show_images.app
