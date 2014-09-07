@@ -18,14 +18,13 @@ class RPCMethods:
     def Echo(self, params):
         number = params['number']
         images = ops.getImage(number)
-        image_data = ''
-        comma = False
+        image_data = []
         
         for image in images:
-            if comma:
-                image_data = image_data + ","
-            comma = True
-            image_data = image_data + image.imageText
+            dictionary = {}
+            dictionary['image'] = image.imageText
+            dictionary['file_type'] = image.file_type
+            image_data.append(dictionary)  
         return image_data
 
   

@@ -7,8 +7,9 @@ This file contains some important functions used
 '''
 import json
 import urllib2
+import urllib
+import base64
 import HTMLParser
-import time
 import models
 
 
@@ -27,18 +28,16 @@ def scrapImages():
     resetUrls()
     
     for item in twitpic_images:
-        twitpic = {}
         twitpic_id = item['short_id']
         twitpic_title = item["message"]
         twitpic_title = twitpic_title.replace('/', u'\u2044')
         twitpic_title = twitpic_title[:max_length]
         twitpic_file_type = item["type"]
-        twitpic['twitpic_time'] = time.mktime(time.strptime(item["timestamp"], "%Y-%m-%d %H:%M:%S"))
-        twitpic['twitpic_file_url'] = "http://twitpic.com/show/full/"+twitpic_id
+        twitpic_file_url = "http://twitpic.com/show/full/"+twitpic_id
         twitpic_file_name= h.unescape(twitpic_title.replace(" ", "")) + "." + twitpic_file_type
         twitpic_file_name = twitpic_file_name
-        pictures.append(twitpic['twitpic_file_url'])
-        addUrl(twitpic_file_name, twitpic['twitpic_file_url'])
+        pictures.append(twitpic_file_url)
+        addUrl(twitpic_file_name, twitpic_file_url,twitpic_file_type)
     return pictures
 
 def resetUrls():
@@ -47,26 +46,19 @@ def resetUrls():
         row.image_active = False
         row.put()
     
-def addUrl(image_name,image_url):
+def addUrl(image_name,image_url,twitpic_file_type):
     key = image_name
     row = models.UrlCache(key_name = key)
     row.image_name = image_name
     row.image_url = image_url
     row.image_active = True
+    row.file_type = twitpic_file_type
     row.put()
 
 def getImages():
     q = models.UrlCache().all().filter('image_active =', True)
     row = q.fetch(6)
     return row
-
-def getScrapedImages():
-    q = models.UrlCache().all()
-    rows = q.fetch(6)
-    imagesUrls = []
-    for row in rows:
-        imagesUrls.append(row.image_url)
-    return imagesUrls
 
 def getImage(count):
     q = models.ImageModel().all()
@@ -76,3 +68,12 @@ def getImage(count):
 def defaultValues():
     return  {
               }   
+def addImages(uploaded_image):
+    for imag in uploaded_image:
+        key = imag.image_name
+        image = models.ImageModel(key_name = key)
+        image.image_name = imag.image_name
+        image.file_type = imag.file_type
+        decodeimage = urllib.urlopen(imag.image_url)
+        image.imageText = base64.b64encode(decodeimage.read())
+        image.put()

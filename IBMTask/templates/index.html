@@ -22,15 +22,15 @@
 <div class="container">
     <div class="row">
         <div class="text-center">
-            <h1>Image Gallery</h1>
+            <h1>Image Gallery</h1>           
         </div>
  
         <h5>The following images are displayed from the image repository of this website</h2>
         <div class="row">
-         {% for image_url in displayImages %}
+         {% for image in displayImages %}
             <div class="col-md-4">
                 <div class="well">
-               <img src="data:image/jpg;base64,{{image_url}}"/>
+               <img src="data:image/{{image.file_type}};base64,{{image.image}}"/>
                 </div>
             </div>
             {% endfor %}

@@ -13,10 +13,10 @@ class  UrlCache(db.Model):
     image_name = db.StringProperty()
     image_url = db.StringProperty()
     image_active = db.BooleanProperty()
+    file_type = db.StringProperty()
     
 #Will contain the images scrapped off from the service    
 class ImageModel(db.Model):
     image_name = db.StringProperty()   
-    image_url   = db.StringProperty() 
-    img  = db.BlobProperty()
+    file_type = db.StringProperty() 
     imageText = db.TextProperty()

@@ -16,6 +16,7 @@ import urllib
 import urllib2
 import webapp2
 import os
+import json
 
 from google.appengine.api import urlfetch
 from google.appengine.ext.webapp import template
@@ -36,12 +37,13 @@ class ShowImagesHandle(webapp2.RequestHandler):
         })
         response = urllib2.urlopen(url, params).read() 
         
-        image_data = response[1:-1]
-        if len(image_data) > 10: 
-            image_data = image_data.split(',')
+        image_data = json.loads(response)
         displayImages = []
-        for imageString in image_data:
-            displayImages.append(imageString)
+        for imageDict in image_data:
+            dictionary = {}
+            dictionary['image'] = imageDict['image']
+            dictionary['file_type'] = imageDict['file_type']
+            displayImages.append(dictionary)
         
         values = defaultValues()
         values['displayImages'] = displayImages
