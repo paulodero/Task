@@ -47,7 +47,7 @@ class ShowImagesHandle(webapp2.RequestHandler):
         
         values = defaultValues()
         values['displayImages'] = displayImages
-        wireframe = 'index'
+        wireframe = 'gallery'
         app_path = os.path.join(DIRECTORY, os.path.join('templates', '%s.html' % wireframe))
         values['app'] = template.render(app_path, values, debug=_DEBUG)
         path = os.path.join(TEMPLATES_PATH,'index.html')
