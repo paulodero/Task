@@ -23,12 +23,12 @@
 <!-- Gallery - START -->
 
 <div class="container">
-     <h5>The following images are displayed from twitpic, You need to pull them into this website's images repo</h5>
+     <h5>{{ app }} <a href='{{ link }}' target='_blank'>{{ link }}</a></h5>
      To Scrap the images from twitpic <a href='/scrap' class='button'>CLICK HERE</a>
-     {{ app }}
+        
     <div class="row">
         <div class="text-center">
-            <h1>Twitpic Image Gallery</h1>
+            <h1>Twitpic Images</h1>
         </div>
             <div class="row">
          {% for image_url in images %}
@@ -41,8 +41,6 @@
          {% endfor %}
     
         </div>
-
-
     </div>
 </div>
 <!-- Gallery - END -->

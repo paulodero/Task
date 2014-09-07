@@ -44,16 +44,7 @@ class ScrapHandler(webapp2.RequestHandler):
             image.imageText = base64.b64encode(decodeimage.read())
             image.put()
             
-            values = ops.defaultValues()
-            values['images'] = ops.scrapImages()
-            values['response'] = 'Images have been scrapped from twitpic'
-            wireframe = 'response'
-            app_path = os.path.join(DIRECTORY, os.path.join('templates', '%s.html' % wireframe))
-            values['app'] = template.render(app_path, values, debug=_DEBUG)
-            path = os.path.join(TEMPLATES_PATH,'index.html')
-            self.response.out.write(template.render(path, values, debug=_DEBUG))
+            self.redirect('/?response=yes')
 
-
-         
 app = webapp2.WSGIApplication([ ('/scrap', ScrapHandler)],
                               debug=True)

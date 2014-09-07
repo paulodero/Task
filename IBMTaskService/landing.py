@@ -24,9 +24,16 @@ urlfetch.set_default_fetch_deadline(2000)
 
 class LandingPage(webapp2.RequestHandler):
     def get(self):
+        response = self.request.get('response',None)
         values = ops.defaultValues()
         values['images'] = ops.scrapImages()
-        values['response'] = ''
+        if response:
+            values['response'] = 'Images have been scrapped from twitpic. You can now view them from '
+            values['link'] = 'http://ibmtask.appspot.com/'
+        else:
+            values['response'] = 'The following images are displayed from twitpic.'
+            values['link'] = ''
+            
         wireframe = 'response'
         app_path = os.path.join(DIRECTORY, os.path.join('templates', '%s.html' % wireframe))
         values['app'] = template.render(app_path, values, debug=_DEBUG)
