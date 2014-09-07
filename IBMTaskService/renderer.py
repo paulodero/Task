@@ -12,8 +12,6 @@ The API sends back image strings encoded in base64
 import json
 import webapp2
 import ops
-import base64
-import urllib
 
 
 class RPCMethods:
@@ -24,12 +22,10 @@ class RPCMethods:
         comma = False
         
         for image in images:
-            decodeimage = urllib.urlopen(image.image_url)
-            encoded_str = base64.b64encode(decodeimage.read())
             if comma:
                 image_data = image_data + ","
             comma = True
-            image_data = image_data + encoded_str #encoded_str
+            image_data = image_data + image.imageText
         return image_data
 
   

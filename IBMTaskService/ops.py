@@ -24,6 +24,8 @@ def scrapImages():
 
     twitpic_images = twitpic_data["images"]
     
+    resetUrls()
+    
     for item in twitpic_images:
         twitpic = {}
         twitpic_id = item['short_id']
@@ -39,15 +41,22 @@ def scrapImages():
         addUrl(twitpic_file_name, twitpic['twitpic_file_url'])
     return pictures
 
+def resetUrls():
+    q = models.UrlCache().all()
+    for row in q:
+        row.image_active = False
+        row.put()
+    
 def addUrl(image_name,image_url):
     key = image_name
     row = models.UrlCache(key_name = key)
     row.image_name = image_name
     row.image_url = image_url
+    row.image_active = True
     row.put()
 
 def getImages():
-    q = models.UrlCache().all()
+    q = models.UrlCache().all().filter('image_active =', True)
     row = q.fetch(6)
     return row
 
@@ -64,3 +73,6 @@ def getImage(count):
     row = q.fetch(int(count))
     return row
 
+def defaultValues():
+    return  {
+              }   

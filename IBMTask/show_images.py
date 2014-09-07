@@ -31,7 +31,7 @@ class ShowImagesHandle(webapp2.RequestHandler):
         url = 'http://ibmtask-service.appspot.com/rpc'
         params = urllib.urlencode({
                 "action": "Echo",
-                "params": '{"number":"3"}',
+                "params": '{"number":"10"}',
                 "key": "mySecretKey"
         })
         response = urllib2.urlopen(url, params).read() 
@@ -44,7 +44,6 @@ class ShowImagesHandle(webapp2.RequestHandler):
         
         values = defaultValues()
         values['displayImages'] = displayImages
-        values['length'] = len(displayImages)
         wireframe = 'index'
         app_path = os.path.join(DIRECTORY, os.path.join('templates', '%s.html' % wireframe))
         values['app'] = template.render(app_path, values, debug=_DEBUG)
