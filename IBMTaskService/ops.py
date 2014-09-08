@@ -11,6 +11,7 @@ import urllib
 import base64
 import HTMLParser
 import models
+import time
 
 
 def scrapImages():
@@ -35,9 +36,10 @@ def scrapImages():
         twitpic_file_type = item["type"]
         twitpic_file_url = "http://twitpic.com/show/full/"+twitpic_id
         twitpic_file_name= h.unescape(twitpic_title.replace(" ", "")) + "." + twitpic_file_type
+        twitpic_time = time.mktime(time.strptime(item["timestamp"], "%Y-%m-%d %H:%M:%S"))
         twitpic_file_name = twitpic_file_name
         pictures.append(twitpic_file_url)
-        addUrl(twitpic_file_name, twitpic_file_url,twitpic_file_type)
+        addUrl(twitpic_file_name, twitpic_file_url,twitpic_file_type,twitpic_time)
     return pictures
 
 def resetUrls():
@@ -46,13 +48,14 @@ def resetUrls():
         row.image_active = False
         row.put()
     
-def addUrl(image_name,image_url,twitpic_file_type):
+def addUrl(image_name,image_url,twitpic_file_type,twitpic_time):
     key = image_name
     row = models.UrlCache(key_name = key)
     row.image_name = image_name
     row.image_url = image_url
     row.image_active = True
     row.file_type = twitpic_file_type
+    row.file_time = str(twitpic_time)
     row.put()
 
 def getImages():
